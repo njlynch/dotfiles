@@ -1,29 +1,33 @@
 [core]
 	editor = emacs -nw -Q
+	excludesfile = ~/.gitignore
 	pager = less -RX
 [alias]
-        st = status -sb
-        ci = commit
-        cia = commit --amend
-        br = branch
-        co = checkout
-        df = diff
-        dfw = diff --word-diff
-        lga = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative
-        lg = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative -n 10
-        lgb = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative --remotes --branches
-        crdf = diff -U999999999 --no-color -b -M
-        ru = rebase @{upstream}
-        rui = rebase -i @{upstream}
-        fixup = !git ci -a --fixup=HEAD && git rui
+  st = status -sb
+  ci = commit
+  cia = commit --amend
+  br = branch
+  co = checkout
+  df = diff
+  dfw = diff --word-diff
+  lga = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative
+  lg = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative -n 10
+  lgb = log --graph --pretty=format:'%C(magenta)%h%Creset %C(bold cyan)%d%C(reset) %s - %Cgreen%cr by %an%Creset' --abbrev-commit --date=relative --remotes --branches
+  ru = rebase @{upstream}
+  rui = rebase -i @{upstream}
+  fixup = commit -a --fixup=HEAD
+  amend = commit -a --amend --no-edit
 [user]
 	name = Nick Lynch
-	email = njlynch@gmail.com
 [color]
 	ui = true
 [color "branch"]
 	current = cyan
 [diff]
-        renames = true
+  renames = true
 [push]
 	default = tracking
+[fetch]
+  prune = true
+[init]
+  defaultBranch = main

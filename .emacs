@@ -8,28 +8,20 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
+;; default to better frame titles
+(setq frame-title-format
+      (concat  "%b - emacs@" (system-name)))
+
 ; Get rid of that pesky toolbar too
-(tool-bar-mode -1)
+(if window-system
+    (tool-bar-mode -1))
 
 ; I don't like tabs
 (setq-default indent-tabs-mode nil)
-
-; Ruby-mode stuff
-(eval-after-load 'ruby-mode
-  '(progn
-     ;; work around possible elpa bug
-     (ignore-errors (require 'ruby-compilation))
-     (setq ruby-use-encoding-map nil)
-     (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
-     (define-key ruby-mode-map (kbd "C-c l") "lambda")))
-(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-
+(setq-default tab-width 2)
+(add-hook 'python-mode-hook '(lambda ()
+                               (setq python-indent 2)))
+(setq js-indent-level 2)
 
 ; Set PATH and eval-path
 (let ((path (shell-command-to-string "source /home/$USER/.zshrc 2>/dev/null; echo -n $PATH")))
@@ -56,12 +48,8 @@
 ; display line numbers in margin (fringe). Emacs 23 only.
 (global-linum-mode 1)
 
-; Javascript indentation to 2 spaces
-(setq js-indent-level 2)
-
 ; Text by default
 (setq initial-major-mode 'text-mode)
 
 ; Delete trailing whitespace by default
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
